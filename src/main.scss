@@ -1,11 +1,5 @@
 @charset 'utf-8';
 
-@import 'tailwindcss/base.css';
-@import 'tailwindcss/components.css';
-@import 'tailwindcss/utilities.css';
-
-h1{
-  &::after{
-    content: "こんにちは";
-  }
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
