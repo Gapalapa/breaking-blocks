@@ -31,11 +31,15 @@ main{
   @apply fixed max-w-3xl container mx-auto h-full top-0 bottom-0 left-0 right-0 overflow-hidden z-0;
 }
 
+.wrap{
+  height: 93.7vh;
+  @apply flex justify-between items-start;
+}
 /* main frame */
 .frame{
   height: 94%;
   background: linear-gradient(90deg, rgba(65, 164, 253, 1), rgba(14, 244, 255, 1));
-  @apply absolute max-w-sm mx-auto p-1 top-0 bottom-0 left-0 right-0 m-auto;
+  @apply absolute max-w-sm w-1/2 mx-auto p-1 top-0 bottom-0 left-0 right-0 m-auto;
 }
 .frame-inner{
   @apply relative w-full h-full bg-slate-900 flex align-middle justify-center flex-col p-4;
@@ -50,38 +54,69 @@ main{
   }
 }
 .block-cmn{
-    width: 22%;
-    @apply flex flex-col justify-between items-center;
-    .menu-text{
-      font-family: "Silkscreen", sans-serif;
-      border-radius: 0.375rem 0 0.375rem 0;
-      @apply absolute left-0 text-white font-bold px-4 py-1 z-10;
-    }
+  width: 22%;
+  @apply h-full flex flex-col items-center;
+}
+[class^="box-"],
+[class*="box-"]{
+  font-family: "Silkscreen", sans-serif;
+  @apply relative w-full h-32 rounded-md top-8 text-4xl text-white;
+  &::after{
+    border-radius: 0.375rem 0 0.375rem;
+    @apply absolute text-white text-base py-1 px-4 z-10;
   }
+  .box-inner{
+    width: calc(100% - .5rem);
+    height: calc(100% - .5rem);
+    background: linear-gradient(to right, rgb(32, 45, 76) 50%, rgba(15, 23, 42, 1) 100%);
+    @apply absolute top-0 bottom-0 right-0 left-0 m-auto;
+  }
+}
 .box-{
   &hold{
-    @apply h-32 top-8 rounded-md;
+    @apply top-8;
     background: linear-gradient(90deg, #fe0940, #db002f);
     &::after{
-      content: "";
-      position: absolute;
-      width: calc(100% - .5rem);
-      height: calc(100% - .5rem);
-      background: linear-gradient(to right, rgb(32, 45, 76) 50%, rgba(15, 23, 42, 1) 100%);
-      @apply top-0 bottom-0 left-0 right-0 m-auto;
-    }
-    .menu-text{
+      content: "HOLD";
       background: linear-gradient(90deg, #fe0940, #db002f);
     }
   }
   &score{
-
+    background: linear-gradient(90deg, #fe0940, #db002f);
+    @apply h-24;
+    &::after{
+      content: "SCORE";
+      background: linear-gradient(90deg, #fe0940, #db002f);
+    }
+    .box-inner{
+      @apply flex items-end justify-end;
+      p{
+        @apply pr-2 pb-2;
+      }
+    }
+  }
+  &next{
+    background: linear-gradient(90deg, rgba(65, 164, 253, 1), rgba(14, 244, 255, 1));
+    &::after{
+      content: "NEXT";
+      background: linear-gradient(90deg, rgba(65, 164, 253, 1), rgba(14, 244, 255, 1));
+    }
+  }
+  &next02,
+  &next03{
+    background: linear-gradient(90deg, rgba(65, 164, 253, 1), rgba(14, 244, 255, 1));
+    @apply h-24;
+  }
+  &timer{
+    @apply text-center;
   }
   &controller{
     width: 22%;
-    height: 0;
     padding-top: 22%;
-    @apply absolute right-0 bottom-16;
+    @apply absolute h-0 text-base bottom-16 mt-auto;
+    &::after{
+      @apply hidden;
+    }
     .btn-control{
       @apply absolute w-16 h-16 flex justify-center items-center rounded-full bg-slate-900 text-white z-10;
       background: linear-gradient(135deg, white 0%, white 22%, #ddd 44%, #a5a5a5 52%, black 100%);
@@ -104,7 +139,7 @@ main{
   }
 }
 .btn-pause{
-  @apply absolute w-10 h-10 top-2 right-2;
+  @apply absolute w-10 h-10 top-4 right-3;
   .pause-mark{
     @apply w-6;
     span{

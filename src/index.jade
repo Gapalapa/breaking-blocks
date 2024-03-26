@@ -11,7 +11,6 @@ html(lang="ja")
 
     // CSS
     link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/destyle.css@4.0.1/destyle.min.css")
-    link(rel="stylesheet", href="main.scss")
   body#breaking-blocks.bg-black
     main
       button.btn-pause.js-game
@@ -20,43 +19,50 @@ html(lang="ja")
             span
             span
           p.inline-block PAUSE
-      .block-cmn.js-game
-        .box-hold
-          p.menu-text.hold HOLD
-        .box-score
-          p.menu-text.hold SCORE
-      .frame
-        .frame-inner
-          section#start.inner.js-start
-            h1.ttl
-              span.block
-                span.text-red B
-                span.text-green R
-                span.text-orange E
-                span.text-purple A
-                span.text-blue K
-                span.text-yellow I
-                span.text-red N
-                span.text-green G
-              span.block
-                span.text-orange B
-                span.text-purple L
-                span.text-blue O
-                span.text-yellow C
-                span.text-red K
-                span.text-green S
-            button.btn-start.js-btn-start START
-          section#game.inner.js-game
-      .block-cmn.js-game
-        .box-next
-          p.menu-text.next NEXT
-        .box-inner
-        .box-inner
-        .box-controller.js-game
-          button.btn-control.btn-top ▲
-          button.btn-control.btn-right ▶︎
-          button.btn-control.btn-down ▼
-          bottun.btn-control.btn-left ◀︎
+      .wrap
+        .block-cmn.js-game
+          .box-hold
+            .box-inner
+          .box-score.mt-auto
+            .box-inner
+              p 0
+        .frame
+          .frame-inner
+            section#start.inner.js-start
+              h1.ttl
+                span.block
+                  span.text-red B
+                  span.text-green R
+                  span.text-orange E
+                  span.text-purple A
+                  span.text-blue K
+                  span.text-yellow I
+                  span.text-red N
+                  span.text-green G
+                span.block
+                  span.text-orange B
+                  span.text-purple L
+                  span.text-blue O
+                  span.text-yellow C
+                  span.text-red K
+                  span.text-green S
+              button.btn-start.js-btn-start START
+            section#game.inner.js-game
+              canvas#block-parts(width="400" height="400")
+        .block-cmn.js-game
+          .box-next.mt-8
+            .box-inner
+          .box-next02.mt-4
+            .box-inner
+          .box-next03.mt-4
+            .box-inner
+          .box-timer.mt-4
+            p.js-timer
+          .box-controller.js-game
+            button.btn-control.btn-top ▲
+            button.btn-control.btn-right ▶︎
+            button.btn-control.btn-down ▼
+            bottun.btn-control.btn-left ◀︎
 
       fotter
         p.text-white.text-center
