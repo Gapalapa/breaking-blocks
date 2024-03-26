@@ -150,44 +150,6 @@ main{
     @apply text-xs text-white;
   }
 }
-// .right-block{
-//   .next-block{
-//     @apply absolute h-40 rounded-md top-16 right-0;
-//     background: linear-gradient(90deg, rgba(65, 164, 253, 1), rgba(14, 244, 255, 1));
-//     width: 22%;
-//     &::after{
-//       content: "";
-//       position: absolute;
-//       width: calc(100% - .5rem);
-//       height: calc(100% - .5rem);
-//       background: linear-gradient(to right, rgb(32, 45, 76) 50%, rgba(15, 23, 42, 1) 100%);
-//       @apply top-0 bottom-0 left-0 right-0 m-auto;
-//     }
-//     .next{
-//       @apply absolute left-0 text-white font-bold px-4 py-1 z-10;
-//       font-family: "Silkscreen", sans-serif;
-//       background: linear-gradient(90deg, #41a4fd, #64bdf8);
-//       border-radius: 0.375rem 0 0.375rem 0;
-//     }
-//   }
-//   .inner-block{
-//     width: 22%;
-//     top: 14.5rem;
-//     @apply absolute h-28 rounded-md right-0;
-//     background: linear-gradient(90deg, rgba(65, 164, 253, 1), rgba(14, 244, 255, 1));
-//     &::after{
-//       content: "";
-//       position: absolute;
-//       width: calc(100% - .5rem);
-//       height: calc(100% - .5rem);
-//       background: linear-gradient(to right, rgb(32, 45, 76) 50%, rgba(15, 23, 42, 1) 100%);
-//       @apply top-0 bottom-0 left-0 right-0 m-auto;
-//     }
-//     &:nth-child(2){
-//       top: 22rem;
-//     }
-//   }
-// }
 
 /* ++++++++++++++++++++
 *        Start        *
