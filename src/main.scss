@@ -42,7 +42,7 @@ main{
   @apply absolute max-w-sm w-1/2 mx-auto p-1 top-0 bottom-0 left-0 right-0 m-auto;
 }
 .frame-inner{
-  @apply relative w-full h-full bg-slate-900 flex align-middle justify-center flex-col p-4;
+  @apply relative w-full h-full bg-slate-900 flex align-middle justify-center flex-col;
   &::after{
     content: "";
     @apply absolute w-full h-full top-0 left-0 bottom-0 my-auto;
@@ -50,7 +50,7 @@ main{
                       linear-gradient(90deg, transparent calc(100% - 1px), #f0f0f025 calc(100% - 1px));
     background-size: 20px 20px;
     background-repeat: repeat;
-    background-position: center center;
+    background-position: center bottom;
   }
 }
 .block-cmn{
@@ -149,12 +149,24 @@ main{
   p{
     @apply text-xs text-white;
   }
+  &.btn-replay{
+    span{
+      @apply w-4;
+      &:first-child{
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
+      }
+      &:last-child{
+        display: none;
+      }
+    }
+  }
 }
 
 /* ++++++++++++++++++++
 *        Start        *
 ++++++++++++++++++++ */
 #start{
+  @apply p-4;
   &.inner{
     @apply relative flex justify-center align-middle flex-col z-50;
   }
@@ -195,8 +207,12 @@ main{
           text-stroke: 2px #9b00c2;
         }
         &blue{
-          -webkit-text-stroke: 2px #00a1ba;
-          text-stroke: 2px #00a1ba;
+          -webkit-text-stroke: 2px #08097c;
+          text-stroke: 2px #08097c;
+        }
+        &lightBlue{
+          -webkit-text-stroke: 2px #007e7f;
+          text-stroke: 2px #007e7f;
         }
         &yellow{
           -webkit-text-stroke: 2px #c9a500;
@@ -207,7 +223,12 @@ main{
   }
 }
 
-
+/* ++++++++++++++++++++
+*        Game         *
+++++++++++++++++++++ */
+#game{
+  @apply w-full h-full;
+}
 /* ++++++++++++++++++++
 *       Fotter        *
 ++++++++++++++++++++ */

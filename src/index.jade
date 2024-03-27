@@ -13,7 +13,7 @@ html(lang="ja")
     link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/destyle.css@4.0.1/destyle.min.css")
   body#breaking-blocks.bg-black
     main
-      button.btn-pause.js-game
+      button.btn-pause.js-game.js-pause
         .flex.justify-center.items-center.flex-col
           .pause-mark.flex.justify-around
             span
@@ -36,16 +36,16 @@ html(lang="ja")
                   span.text-orange E
                   span.text-purple A
                   span.text-blue K
-                  span.text-yellow I
-                  span.text-red N
-                  span.text-green G
+                  span.text-lightBlue I
+                  span.text-yellow N
+                  span.text-red G
                 span.block
-                  span.text-orange B
-                  span.text-purple L
-                  span.text-blue O
-                  span.text-yellow C
-                  span.text-red K
-                  span.text-green S
+                  span.text-green B
+                  span.text-orange L
+                  span.text-purple O
+                  span.text-blue C
+                  span.text-lightBlue K
+                  span.text-yellow S
               button.btn-start.js-btn-start START
             section#game.inner.js-game
               canvas#block-parts.relative.w-full.z-50
@@ -59,10 +59,10 @@ html(lang="ja")
           .box-timer.mt-4
             p.js-timer
           .box-controller.js-game
-            button.btn-control.btn-top ▲
-            button.btn-control.btn-right ▶︎
-            button.btn-control.btn-down ▼
-            bottun.btn-control.btn-left ◀︎
+            button.btn-control.btn-top.js-top ▲
+            button.btn-control.btn-right.js-right ▶︎
+            button.btn-control.btn-down.js-down ▼
+            bottun.btn-control.btn-left.js-left ◀︎
 
       fotter
         p.text-white.text-center

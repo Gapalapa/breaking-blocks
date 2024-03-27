@@ -13,7 +13,8 @@ module.exports = {
         green: '#00ee02',
         orange: '#fe6d01',
         purple: '#c900fc',
-        blue: '#00d6f9',
+        blue: '#0908f2',
+        lightBlue: '#00d6f9',
         yellow: '#fecf02',
       },
       maxWidth: {
