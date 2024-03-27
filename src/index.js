@@ -10,7 +10,7 @@ $(function(){
   let screenWidth = $('.js-frame').width();
   let screenHeight = $('.js-frame').height();
   $('#js-canvas').attr('width', screenWidth);
-  $('#js-canvas').attr('height', screenHeight + 100);
+  $('#js-canvas').attr('height', screenHeight + 80);
 
   // スタート
   $('.js-btn-start').on('click', function(){
@@ -224,10 +224,16 @@ $(function(){
     // ブロックが落ちる処理
     $(canvas).animate({
       top: '+=20'
-    }, 500, function(){
+    }, 1000, function(){
       y + 20;
       dropBlocks();
     });
+
+    const maxPosition = $('#js-canvas').css('top');
+
+    if (screenHeight >= maxPosition) {
+      $(canvas).stop();
+    }
   }
 
   for(let i = 0; i < blocks.length; i++){
