@@ -227,7 +227,10 @@ main{
 *        Game         *
 ++++++++++++++++++++ */
 #game{
-  @apply w-full h-full;
+  @apply relative w-full h-full overflow-hidden;
+  canvas{
+    @apply absolute bottom-0 z-40;
+  }
 }
 /* ++++++++++++++++++++
 *       Fotter        *

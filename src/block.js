@@ -1,28 +1,73 @@
 $(function(){
   // canvasでブロック生成
-  var canvas = document.getElementById('block-parts');
+  var canvas = document.getElementById('js-canvas');
   var ctx = canvas.getContext('2d');
 
   // ブロックのサイズ
   let blockSize = 20;
 
+  // ブロックが落ち始める位置
+  let canvasWidth = $('.js-frame').width();
+  let x = (canvasWidth - blockSize) / 2; // canvasのx座標の中央に配置
+
+  // ブロックのy座標の初期値
+  let y = -40;
+
+  // Canvasをクリア
+  // ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = '#00ee02';
+  ctx.strokeStyle = '#00a803';
+
+  ctx.beginPath();
+  ctx.fillRect(x, y, blockSize, blockSize);
+  ctx.strokeRect(x, y, blockSize, blockSize);
+
+  ctx.fillRect(x, y + 20, blockSize, blockSize);
+  ctx.strokeRect(x, y + 20, blockSize, blockSize);
+
+  ctx.fillRect(x, y + 40, blockSize, blockSize);
+  ctx.strokeRect(x, y + 40, blockSize, blockSize);
+
+  ctx.fillRect(x, y + 60, blockSize, blockSize);
+  ctx.strokeRect(x, y + 60, blockSize, blockSize);
+
+  // I字ブロック
+  function drawI (){
+    ctx.fillStyle = '#00ee02';
+    ctx.strokeStyle = '#00a803';
+
+    ctx.beginPath();
+    ctx.fillRect(x, y, blockSize, blockSize);
+    ctx.strokeRect(x, y, blockSize, blockSize);
+
+    ctx.fillRect(x, y + 20, blockSize, blockSize);
+    ctx.strokeRect(x, y + 20, blockSize, blockSize);
+
+    ctx.fillRect(x, y + 40, blockSize, blockSize);
+    ctx.strokeRect(x, y + 40, blockSize, blockSize);
+
+    ctx.fillRect(x, y + 60, blockSize, blockSize);
+    ctx.strokeRect(x, y + 60, blockSize, blockSize);
+  }
+
   // J字ブロック
-  function jBlock (){
+  function drawJ (){
     ctx.fillStyle = '#fecf02';
     ctx.strokeStyle = '#c9a500';
 
     ctx.beginPath();
-    ctx.fillRect(20, 80, blockSize, blockSize);
-    ctx.strokeRect(20, 80, blockSize, blockSize);
+    ctx.fillRect(x, y, blockSize, blockSize);
+    ctx.strokeRect(x, y, blockSize, blockSize);
 
-    ctx.fillRect(20, 100, blockSize, blockSize);
-    ctx.strokeRect(20, 100, blockSize, blockSize);
+    ctx.fillRect(x, 100, blockSize, blockSize);
+    ctx.strokeRect(x, 100, blockSize, blockSize);
 
-    ctx.fillRect(20, 120, blockSize, blockSize);
-    ctx.strokeRect(20, 120, blockSize, blockSize);
+    ctx.fillRect(x, 120, blockSize, blockSize);
+    ctx.strokeRect(x, 120, blockSize, blockSize);
 
-    ctx.fillRect(0, 120, blockSize, blockSize);
-    ctx.strokeRect(0, 120, blockSize, blockSize);
+    ctx.fillRect(x, 120, blockSize, blockSize);
+    ctx.strokeRect(x, 120, blockSize, blockSize);
   }
 
   // L字ブロック
@@ -119,72 +164,42 @@ $(function(){
     ctx.strokeRect(280, 20, blockSize, blockSize);
   }
 
-  // ブロックが落ち始める位置
-  let canvasWidth = $('#game').width();
-  let x = (canvasWidth - blockSize) / 2; // canvasのx座標の中央に配置
+  // drawI();
+  // drawJ();
 
-  // ブロックのy座標の初期値
-  let y = 0;
+  // function dropI (){
+  //   if(y < canvas.height - blockSize){
+  //     $(canvas).animate({
+  //       // ブロックが落ちる処理
+  //       top: '+=20'
+  //     }, 500, function(){
+  //       y + 20;
+  //       drawI();
+  //       dropI();
+  //     });
+  //   }
+  // }
 
-  // 回転
-  let angle = 0; // 角度の初期値
+  // $('.js-btn-start').on('click', function(){
+  //   dropI();
+  // });
 
-
-  // Canvasをクリア
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  function drawI (){
-    ctx.fillStyle = '#00ee02';
-    ctx.strokeStyle = '#00a803';
-
-    ctx.beginPath();
-    ctx.fillRect(x, y, blockSize, blockSize);
-    ctx.strokeRect(x, y, blockSize, blockSize);
-
-    ctx.fillRect(x, y + 20, blockSize, blockSize);
-    ctx.strokeRect(x, y + 20, blockSize, blockSize);
-
-    ctx.fillRect(x, y + 40, blockSize, blockSize);
-    ctx.strokeRect(x, y + 40, blockSize, blockSize);
-
-    ctx.fillRect(x, y + 60, blockSize, blockSize);
-    ctx.strokeRect(x, y + 60, blockSize, blockSize);
-  }
-
-  function dropI (){
-    if(y < canvas.height - blockSize){
-      $(canvas).animate({
-        // ブロックが落ちる処理
-        top: '+=20'
-      }, 500, function(){
-        y + 20;
-        drawI();
-        dropI();
-      });
-    }
-  }
-
-  $('.js-btn-start').on('click', function(){
-    dropI();
-  });
-
-  $('body').on('click', function(){
-    angle += 45;
-    drawI();
-  });
-
-  drawI(); // 図形を初期状態で描画
+  // $('body').on('click', function(){
+  //   angle += 45;
+  //   drawI();
+  // });
 
   // 右に移動
-  $('.js-right').on('click', function(){
-    x += 20;
-    drawI();
-  });
+  // $('.js-right').on('click', function(){
+  //   console.log(x);
+  //   x +=20;
+  //   drawI();
+  // });
 
   // 左に移動
-  $('.js-right').on('click', function(){
-    x -= 20;
-    drawI();
-  });
+  // $('.js-left').on('click', function(){
+  //   x -= 20;
+  //   drawI();
+  // });
 
 });

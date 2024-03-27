@@ -7,7 +7,7 @@ html(lang="ja")
     title Breaking Blocks.
 
     // JS
-    script(src="./index.js" type="text/javascript" before)
+    script(src="./index.js" type="module")
 
     // CSS
     link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/destyle.css@4.0.1/destyle.min.css")
@@ -26,7 +26,7 @@ html(lang="ja")
           .box-score.mt-auto
             .box-inner
               p 0
-        .frame
+        .frame.js-frame
           .frame-inner
             section#start.inner.js-start
               h1.ttl
@@ -48,7 +48,7 @@ html(lang="ja")
                   span.text-yellow S
               button.btn-start.js-btn-start START
             section#game.inner.js-game
-              canvas#block-parts.relative.w-full.z-50
+              canvas#js-canvas
         .block-cmn.js-game
           .box-next.mt-8
             .box-inner
@@ -61,8 +61,8 @@ html(lang="ja")
           .box-controller.js-game
             button.btn-control.btn-top.js-top ▲
             button.btn-control.btn-right.js-right ▶︎
+            botton.btn-control.btn-left.js-left ◀︎
             button.btn-control.btn-down.js-down ▼
-            bottun.btn-control.btn-left.js-left ◀︎
 
       fotter
         p.text-white.text-center
