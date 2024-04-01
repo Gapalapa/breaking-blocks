@@ -6,9 +6,6 @@ html(lang="ja")
 
     title Breaking Blocks.
 
-    // JS
-    script(src="./index.js" type="module")
-
     // CSS
     link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/destyle.css@4.0.1/destyle.min.css")
   body#breaking-blocks.bg-black
@@ -23,6 +20,7 @@ html(lang="ja")
         .block-cmn.js-game
           .box-hold
             .box-inner
+              canvas#js-canvas-next
           .box-score.mt-auto
             .box-inner
               p 0
@@ -59,10 +57,10 @@ html(lang="ja")
           .box-timer.mt-4
             p.js-timer
           .box-controller.js-game
-            button.btn-control.btn-top.js-top ▲
-            button.btn-control.btn-right.js-right ▶︎
-            botton.btn-control.btn-left.js-left ◀︎
-            button.btn-control.btn-down.js-down ▼
+            button.btn-control.btn-top.js-controller.js-top ▲
+            button.btn-control.btn-right.js-controller.js-right ▶︎
+            button.btn-control.btn-left.js-controller.js-left ◀︎
+            button.btn-control.btn-down.js-controller.js-down ▼
 
       fotter
         p.text-white.text-center
