@@ -228,8 +228,8 @@ main{
 ++++++++++++++++++++ */
 #game{
   @apply relative w-full h-full overflow-hidden;
-  canvas{
-    @apply absolute bottom-full z-40;
+  .game-board{
+    @apply absolute z-40;
   }
 }
 /* ++++++++++++++++++++

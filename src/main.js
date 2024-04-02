@@ -6,17 +6,23 @@ $(function(){
   let game = $('.js-game');
   let frame = $('.js-frame');
   let startBtn = $('.js-btn-start');
+  let time = $('.js-timer');
+  let score = $('.js-score');
+
   // 初期値
   start.hide();
   game.show();
+  time.text('00:00');
+  score.text('0');
 
-  var canvas = document.getElementById('js-canvas');
+
+  var canvas = document.getElementById('js-game-board');
 
   // canvasサイズ調整
   let screenWidth = frame.width();
   let screenHeight = frame.height();
-  $(canvas).attr('width', screenWidth);
-  $(canvas).attr('height', screenHeight);
+  canvas.width = screenWidth;
+  canvas.height = screenHeight;
 
   // スタート
   startBtn.on('click', function(){
@@ -24,224 +30,204 @@ $(function(){
     start.fadeOut();
     game.fadeIn();
 
+    // スタートボタンクリックと共にタイマー開始
     timerSet();
-
   });
 
-  // タイマー
+  // タイマーの設定
   function timerSet (){
+    let pause = $('.js-pause');
     let sec = 0;
     let min = 0;
     let timer;
 
-    $('.js-timer').text('00:00');
     timer = setInterval(countup, 1000);
 
     $(this).prop('disabled', true);
-    $('.js-timer').prop('disabled', false);
+    time.prop('disabled', false);
 
     // 一時停止
-    $('.js-pause').on('click', function(){
+    pause.on('click', function(){
       $(this).addClass('btn-replay');
-      $('.js-pause p').text('REPLAY');
+      pause.find('p').text('REPLAY');
 
       clearInterval(timer);
 
       $(this).prop('disable', true);
-      $('.js-puse.btn-replay').prop('disable', false);
+      $('.js-pause.btn-replay').prop('disable', false);
     });
 
-    if($('.js-pause').hasClass('btn-replay')){
+    if(pause.hasClass('btn-replay')){
       // リスタート
-      $('.js-pause').on('click', function(){
+      pause.on('click', function(){
         $(this).removeClass('btn-replay');
-        $('.js-pause p').text('PAUSE');
+        pause.find('p').text('PAUSE');
 
         timer = setInterval(countup, 1000);
 
         $(this).prop('disabled', true);
-        $('.js-pause').prop('disabled', false);
+        pause.prop('disabled', false);
       });
     }
 
     function countup(){
       sec += 1;
 
-      if (sec > 59) {
-        sec = 0;
-        min += 1;
-      }
-
-      if (min > 59) {
-        min = 0;
-      }
+      (sec > 59) ? (sec = 0, min += 1) : (min > 59) ? min = 0 : null;
 
       let sec_number = ('0' + sec).slice(-2);
       let min_number = ('0' + min).slice(-2);
 
-      $('.js-timer').text(min_number + ':' + sec_number);
+      time.text(min_number + ':' + sec_number);
     }
   }
 
   // canvasでブロック生成
   var ctx = canvas.getContext('2d');
 
-  // ブロック1つのサイズ
-  let blockSize = 20;
+  let blockSize  = 20; // ブロック1つ分のサイズ
 
   // ブロックが落ち始める位置
-  let x = (screenWidth - blockSize) / 2; // canvasのx座標の中央に配置
+  let x = (screenWidth - blockSize ) / 2; // canvasのx座標の中央に配置
+  let y = 0; // ブロックのy座標の初期値
 
-  // ブロックのy座標の初期値
-  let y = 0;
-
-  // canvasをクリア
-  ctx.clearRect(0, 0, `${canvas.width}`, `${canvas.height}`);
-
-  // ブロックをランダムで取り出す
+  // 次のブロックを作成
   let blocks = ['blockI', 'blockJ', 'blockL', 'blockO', 'blockS', 'blockT', 'blockZ'];
   let random = Math.floor(Math.random() * blocks.length);
-  let randBlocks = blocks[random];
+  let randBlock = blocks[random];
 
-  let newBlock = random + 1;
-  if(newBlock === blocks.length){
-    newBlock = 0; // 最後の要素の場合、最初の要素に戻る
-  }
-
-  // 次のブロックを取得
-  const nextBlock = blocks[newBlock];
-
-  function drawBlocks(block) {
-    if(block === 'blockI'){
-      y = (screenHeight - 80);
+  function drawBlocks() {
+    if(randBlock === 'blockI'){
+      y = (screenHeight - (blockSize * 4));
       // I字ブロック
       ctx.fillStyle = '#00ee02';
       ctx.strokeStyle = '#00a803';
 
       ctx.beginPath();
-      ctx.fillRect(x, y, blockSize, blockSize);
-      ctx.strokeRect(x, y, blockSize, blockSize);
+      ctx.fillRect(x, y, blockSize , blockSize );
+      ctx.strokeRect(x, y, blockSize , blockSize );
 
-      ctx.fillRect(x, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x, y + 20, blockSize, blockSize);
+      ctx.fillRect(x, (y + blockSize  ), blockSize  , blockSize  );
+      ctx.strokeRect(x, (y + blockSize  ), blockSize , blockSize );
 
-      ctx.fillRect(x, y + 40, blockSize, blockSize);
-      ctx.strokeRect(x, y + 40, blockSize, blockSize);
+      ctx.fillRect(x, (y + (blockSize  * 2)), blockSize , blockSize );
+      ctx.strokeRect(x, (y + (blockSize  * 2)), blockSize , blockSize );
 
-      ctx.fillRect(x, y + 60, blockSize, blockSize);
-      ctx.strokeRect(x, y + 60, blockSize, blockSize);
+      ctx.fillRect(x, (y + (blockSize  * 3)), blockSize , blockSize );
+      ctx.strokeRect(x, (y + (blockSize  * 3)), blockSize , blockSize );
 
-    } else if(block === 'blockJ'){
-      y = (screenHeight - 60);
+    } else if(randBlock === 'blockJ'){
+      y = (screenHeight - (blockSize  * 3));
       // J字ブロック
       ctx.fillStyle = '#fecf02';
       ctx.strokeStyle = '#c9a500';
 
       ctx.beginPath();
-      ctx.fillRect(x, y, blockSize, blockSize);
-      ctx.strokeRect(x, y, blockSize, blockSize);
+      ctx.fillRect(x, y, blockSize , blockSize );
+      ctx.strokeRect(x, y, blockSize , blockSize );
 
-      ctx.fillRect(x, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x, y + 20, blockSize, blockSize);
+      ctx.fillRect(x, y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x, y + blockSize , blockSize , blockSize );
 
-      ctx.fillRect(x, y + 40, blockSize, blockSize);
-      ctx.strokeRect(x, y + 40, blockSize, blockSize);
+      ctx.fillRect(x, y + (blockSize  * 2), blockSize , blockSize );
+      ctx.strokeRect(x, y + (blockSize  * 2), blockSize , blockSize );
 
-      ctx.fillRect(x - 20, y + 40, blockSize, blockSize);
-      ctx.strokeRect(x - 20, y + 40, blockSize, blockSize);
+      ctx.fillRect(x - blockSize , y + (blockSize  * 2), blockSize , blockSize );
+      ctx.strokeRect(x - blockSize , y + (blockSize  * 2), blockSize , blockSize );
 
-    } else if(block === 'blockL'){
+    } else if(randBlock === 'blockL'){
+      y = (screenHeight - (blockSize  * 3))
       // L字ブロック
       ctx.fillStyle = '#fe6d01';
       ctx.strokeStyle = '#cf5a00';
 
       ctx.beginPath();
-      ctx.fillRect(x, y, blockSize, blockSize);
-      ctx.strokeRect(x, y, blockSize, blockSize);
+      ctx.fillRect(x, y, blockSize , blockSize );
+      ctx.strokeRect(x, y, blockSize , blockSize );
 
-      ctx.fillRect(x, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x, y + 20, blockSize, blockSize);
+      ctx.fillRect(x, y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x, y + blockSize , blockSize , blockSize );
 
-      ctx.fillRect(x, y + 40, blockSize, blockSize);
-      ctx.strokeRect(x, y + 40, blockSize, blockSize);
+      ctx.fillRect(x, y + (blockSize  * 2), blockSize , blockSize );
+      ctx.strokeRect(x, y + (blockSize  * 2), blockSize , blockSize );
 
-      ctx.fillRect(x + 20, y + 40, blockSize, blockSize);
-      ctx.strokeRect(x + 20, y + 40, blockSize, blockSize);
+      ctx.fillRect(x + blockSize , y + (blockSize  * 2), blockSize , blockSize );
+      ctx.strokeRect(x + blockSize , y + (blockSize  * 2), blockSize , blockSize );
 
-    } else if(block === 'bloclO'){
-      y = (screenHeight - 40);
+    } else if(randBlock === 'bloclO'){
+      y = (screenHeight - (blockSize  * 2));
       // O字ブロック
       ctx.fillStyle = '#fe0940';
       ctx.strokeStyle = '#af0026';
 
-      ctx.fillRect(x, y, blockSize, blockSize);
-      ctx.strokeRect(x, y, blockSize, blockSize);
+      ctx.fillRect(x, y, blockSize , blockSize );
+      ctx.strokeRect(x, y, blockSize , blockSize );
 
-      ctx.fillRect(x + 20, y, blockSize, blockSize);
-      ctx.strokeRect(x + 20, y, blockSize, blockSize);
+      ctx.fillRect(x + blockSize , y, blockSize , blockSize );
+      ctx.strokeRect(x + blockSize , y, blockSize , blockSize );
 
-      ctx.fillRect(x, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x, y + 20, blockSize, blockSize);
+      ctx.fillRect(x, y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x, y + blockSize , blockSize , blockSize );
 
-      ctx.fillRect(x + 20, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x + 20, y + 20, blockSize, blockSize);
+      ctx.fillRect(x + blockSize , y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x + blockSize , y + blockSize , blockSize , blockSize );
 
-    } else if(block === 'blockS'){
-      y = (screenHeight - 40);
+    } else if(randBlock === 'blockS'){
+      y = (screenHeight - (blockSize  * 2));
       // S字ブロック
       ctx.fillStyle = '#c900fc';
       ctx.strokeStyle = '#9b00c2';
 
       ctx.beginPath();
-      ctx.fillRect(x - 20, y, blockSize, blockSize);
-      ctx.strokeRect(x - 20, y, blockSize, blockSize);
+      ctx.fillRect(x - blockSize , y, blockSize , blockSize );
+      ctx.strokeRect(x - blockSize , y, blockSize , blockSize );
 
-      ctx.fillRect(x, y, blockSize, blockSize);
-      ctx.strokeRect(x, y, blockSize, blockSize);
+      ctx.fillRect(x, y, blockSize , blockSize );
+      ctx.strokeRect(x, y, blockSize , blockSize );
 
-      ctx.fillRect(x, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x, y + 20, blockSize, blockSize);
+      ctx.fillRect(x, y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x, y + blockSize , blockSize , blockSize );
 
-      ctx.fillRect(x + 20, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x + 20, y + 20, blockSize, blockSize);
+      ctx.fillRect(x + blockSize , y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x + blockSize , y + blockSize , blockSize , blockSize );
 
-    } else if(block === 'blockT'){
-      y = (screenHeight - 40);
+    } else if(randBlock === 'blockT'){
+      y = (screenHeight - (blockSize  * 2));
       // T字ブロック
       ctx.fillStyle = '#0908f2';
       ctx.strokeStyle = '#08097c';
 
       ctx.beginPath();
-      ctx.fillRect(x, y, blockSize, blockSize);
-      ctx.strokeRect(x, y, blockSize, blockSize);
+      ctx.fillRect(x, y, blockSize , blockSize );
+      ctx.strokeRect(x, y, blockSize , blockSize );
 
-      ctx.fillRect(x - 20, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x - 20, y + 20, blockSize, blockSize);
+      ctx.fillRect(x - blockSize , y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x - blockSize , y + blockSize , blockSize , blockSize );
 
-      ctx.fillRect(x, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x, y + 20, blockSize, blockSize);
+      ctx.fillRect(x, y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x, y + blockSize , blockSize , blockSize );
 
-      ctx.fillRect(x + 20, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x + 20, y + 20, blockSize, blockSize);
+      ctx.fillRect(x + blockSize , y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x + blockSize , y + blockSize , blockSize , blockSize );
 
-    } else if(block === 'blockZ'){
-      y = (screenHeight - 40);
+    } else if(randBlock === 'blockZ'){
+      y = (screenHeight - (blockSize  * 2));
       // Z字ブロック
       ctx.fillStyle = '#00d6f9';
       ctx.strokeStyle = '#00a1ba';
 
       ctx.beginPath();
-      ctx.fillRect(x - 20, y, blockSize, blockSize);
-      ctx.strokeRect(x - 20, y, blockSize, blockSize);
+      ctx.fillRect(x + blockSize , y, blockSize , blockSize );
+      ctx.strokeRect(x + blockSize , y, blockSize , blockSize );
 
-      ctx.fillRect(x, y, blockSize, blockSize);
-      ctx.strokeRect(x, y, blockSize, blockSize);
+      ctx.fillRect(x, y, blockSize , blockSize );
+      ctx.strokeRect(x, y, blockSize , blockSize );
 
-      ctx.fillRect(x, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x, y + 20, blockSize, blockSize);
+      ctx.fillRect(x, y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x, y + blockSize , blockSize , blockSize );
 
-      ctx.fillRect(x + 20, y + 20, blockSize, blockSize);
-      ctx.strokeRect(x + 20, y + 20, blockSize, blockSize);
+      ctx.fillRect(x + blockSize , y + blockSize , blockSize , blockSize );
+      ctx.strokeRect(x + blockSize , y + blockSize , blockSize , blockSize );
     }
   }
 
@@ -253,7 +239,8 @@ $(function(){
       if($(canvas).position().top > 0){
         // 最下部に到達したらアニメーションストップ
         $(canvas).stop();
-        drawBlocks(nextBlock);
+        drawBlocks();
+        drawBlocks();
       } else{
         dropBlocks();
       }
@@ -261,6 +248,6 @@ $(function(){
   }
 
   dropBlocks();
-  drawBlocks(randBlocks, nextBlock);
+  drawBlocks();
 
 });
